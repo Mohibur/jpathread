@@ -4,10 +4,8 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
-import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.BlockingQueue;
@@ -34,54 +32,39 @@ public class HibernateThreadApp {
 
 	public void run(String... args) {
 		hibernateUtil = new HibernateConfiguration();
-		start1();
-	}
-
-	@SuppressWarnings("unused")
-	private void start2Ex() throws IOException, ParseException {
-		BufferedReader bis = buffer();
-		String line;
-		List<Comments> lc = new ArrayList<Comments>();
-		while ((line = bis.readLine()) != null) {
-			if (line.matches("^ *<row .+$")) {
-				line = line.trim().replace("<row ", "").replace(" />", "").trim();
-				lc.add(Parse.parseString(line));
-				if (lc.size() == 10) {
-					break;
-				}
-			}
+		if (args.length == 0) {
+			throw new RuntimeException("Commend Line takes file name");
 		}
-
-		// repo.SaveAll(lc);
+		start1(args[0]);
 	}
 
-	private BufferedReader bufferEx() throws FileNotFoundException {
-		final String xmlFile = "/home/johny/bigdata/Comments.xml";
+	private BufferedReader bufferEx(String fileName) throws FileNotFoundException {
+		final String xmlFile = "";
 		BufferedReader bis = new BufferedReader(
 				new InputStreamReader(new FileInputStream(new File(xmlFile)), StandardCharsets.UTF_8));
 		return bis;
 	}
 
-	private BufferedReader buffer() {
+	private BufferedReader buffer(String fileName) {
 		try {
-			return bufferEx();
+			return bufferEx(fileName);
 		} catch (FileNotFoundException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private void start1() {
+	private void start1(String fileName) {
 		try {
-			start1Ex();
+			start1Ex(fileName);
 		} catch (Exception e) {
 
 			throw new RuntimeException(e);
 		}
 	}
 
-	private void start1Ex() throws Exception {
+	private void start1Ex(String fileName) throws Exception {
 		queue = new LinkedBlockingQueue<List<Comments>>();
-		BufferedReader bis = buffer();
+		BufferedReader bis = buffer(fileName);
 		List<Thread> threadList = popThreads();
 
 		String line;
