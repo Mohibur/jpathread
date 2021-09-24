@@ -6,10 +6,10 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 
 public abstract class RepoBase<T> {
-	HibernateConfiguration hibernateUtil;
+	Hibernate hibernateUtil;
 	Session session;
 
-	public RepoBase(HibernateConfiguration hibernateUtil) {
+	public RepoBase(Hibernate hibernateUtil) {
 		this.hibernateUtil = hibernateUtil;
 		session = hibernateUtil.getSessionFactory().openSession();
 	}

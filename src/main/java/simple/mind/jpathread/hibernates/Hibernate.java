@@ -14,13 +14,13 @@ import simple.mind.jpathread.HibernateThreadApp;
 import simple.mind.jpathread.configs.Config;
 import simple.mind.jpathread.model.Comments;
 
-public class HibernateConfiguration {
+public class Hibernate {
 	Config conf = new Config();
 
 	private StandardServiceRegistry registry;
 	private SessionFactory sessionFactory;
 
-	public HibernateConfiguration() {
+	public Hibernate() {
 		try {
 			StandardServiceRegistryBuilder registryBuilder = new StandardServiceRegistryBuilder();
 

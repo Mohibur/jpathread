@@ -12,7 +12,7 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 import java.util.stream.IntStream;
 
-import simple.mind.jpathread.hibernates.HibernateConfiguration;
+import simple.mind.jpathread.hibernates.Hibernate;
 import simple.mind.jpathread.model.Comments;
 import simple.mind.jpathread.model.repo.CommentsRepo;
 
@@ -24,14 +24,14 @@ public class HibernateThreadApp {
 	private Boolean moreData = true;
 	private static final Integer MAX_QUEUE_SIZE = 100000;
 
-	HibernateConfiguration hibernateUtil = null;
+	Hibernate hibernateUtil = null;
 
 	public static void main(String[] args) {
 		new HibernateThreadApp().run(args);
 	}
 
 	public void run(String... args) {
-		hibernateUtil = new HibernateConfiguration();
+		hibernateUtil = new Hibernate();
 		if (args.length == 0) {
 			throw new RuntimeException("Commend Line takes file name");
 		}
